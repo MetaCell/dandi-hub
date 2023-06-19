@@ -91,8 +91,9 @@ RUN ./mpm install \
 # Switch back to NB_USER for addons and live-scripts installations
 USER $NB_USER
 
-# Install the live-scripts examples
-RUN git clone https://github.com/INCF/example-live-scripts
+# Install the live-scripts examples (TMP different repository)
+# RUN git clone https://github.com/INCF/example-live-scripts
+RUN git clone https://github.com/aranega/example-live-scripts
 
 ## Adds add-ons and register them in the Matlab instance
 # Patch startup.m to automatically register the addons
