@@ -127,6 +127,8 @@ if not(isfolder(homedirExamples)) \n\
     % repo = gitclone('https://github.com/INCF/example-live-scripts', homedirExamples, Depth=1); \n\
     system(strcat(string('git clone --depth=1 https://github.com/INCF/example-live-scripts '), homedirExamples)) \n\
 end \n\
+% Adds the live-script folder \n\
+addpath(genpath(homedirExamples)) \n\
 % Adds the addons to the path \n\
 addons = dir('${ADDONS_DIR}'); \n\
 addons = setdiff({addons([addons.isdir]).name}, {'.', '..'}); \n\
