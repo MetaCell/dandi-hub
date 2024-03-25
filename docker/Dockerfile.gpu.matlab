@@ -6,6 +6,14 @@ ARG VERSION="1.1.5"
 
 ARG EXTRA_DIR=/opt/extras
 
+# Disable globally cache for pip and bytecode production at package-installation time
+RUN echo -e "\n\
+[install] \n\
+compile = no \n\
+\n\
+[global] \n\
+no-cache-dir = True" >> /etc/pip.conf
+
 RUN apt update \
  && apt install -y software-properties-common \
  && add-apt-repository -y 'ppa:apptainer/ppa' \
