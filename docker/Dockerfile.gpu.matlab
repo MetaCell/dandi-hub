@@ -22,7 +22,9 @@ RUN apt update \
  && rm -rf /var/lib/apt/lists/* && rm -rf /tmp/*
 
 RUN apt-get update && apt-get install -y ca-certificates libseccomp2 \
-      s3fs netbase less parallel tmux screen vim emacs htop curl \
+    uidmap squashfs-tools squashfuse fuse2fs fuse-overlayfs fakeroot \
+    s3fs netbase less parallel tmux screen vim emacs htop curl \
+    git build-essential \
    && rm -rf /var/lib/apt/lists/* && rm -rf /tmp/*
 
 RUN curl --silent --show-error "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" \
@@ -31,18 +33,18 @@ RUN curl --silent --show-error "https://awscli.amazonaws.com/awscli-exe-linux-x8
 
 # Install jupyter server proxy and desktop
 RUN curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg \
-   && echo "deb [signed-by=/usr/share/keyrings/brave-browser-archive-keyring.gpg] https://brave-browser-apt-release.s3.brave.com/ stable main"|sudo tee /etc/apt/sources.list.d/brave-browser-release.list \
+   && echo "deb [signed-by=/usr/share/keyrings/brave-browser-archive-keyring.gpg] https://brave-browser-apt-release.s3.brave.com/ stable main" | sudo tee /etc/apt/sources.list.d/brave-browser-release.list \
    && apt-get -y -qq update \
    && apt-get -y -qq install \
-       dbus-x11 \
+        dbus-x11 \
         xfce4 \
-       xfce4-panel \
-       xfce4-session \
-       xfce4-settings \
-       xorg \
-       xubuntu-icon-theme \
-       brave-browser \
-    tigervnc-standalone-server \
+        xfce4-panel \
+        xfce4-session \
+        xfce4-settings \
+        xorg \
+        xubuntu-icon-theme \
+        brave-browser \
+        tigervnc-standalone-server \
         tigervnc-xorg-extension \
     # chown $HOME to workaround that the xorg installation creates a
     # /home/jovyan/.cache directory owned by root
