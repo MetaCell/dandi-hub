@@ -85,7 +85,7 @@ clear" >> ${STARTUP_SCRIPT}
 # Variables for addons management that are tied to a specific release, commit or bleeding edge
 ARG ADDONS_RELEASES="https://github.com/schnitzer-lab/EXTRACT-public/archive/refs/heads/master.zip \
                      https://github.com/bahanonu/ciatah/archive/refs/heads/master.zip \
-                     https://github.com/NeurodataWithoutBorders/matnwb/archive/refs/heads/master.zip"
+                     https://github.com/NeurodataWithoutBorders/matnwb/archive/refs/tags/2.9.0.zip"
 
 # Add add-ons for Dandi: create the addons folder and download/unzip the addons
 RUN mkdir -p ${ADDONS_DIR} && \
