@@ -1,4 +1,4 @@
-ARG MATLAB_RELEASE=r2025b
+ARG MATLAB_RELEASE=r2026a
 FROM ghcr.io/mathworks-ref-arch/matlab-integration-for-jupyter/jupyter-matlab-notebook:${MATLAB_RELEASE}
 
 USER root
@@ -74,8 +74,11 @@ addons = setdiff({addons([addons.isdir]).name}, {'.', '..'}); \n\
 for addon_idx = 1:numel(addons) \n\
     addpath(genpath(strcat('${ADDONS_DIR}/', addons{addon_idx}))); \n\
 end \n\
+% Dedicated calls to setup addons \n\
 % generateCore();  % Generate the most recent nwb-schema \n\
 % ciapkg.io.loadDependencies('guiEnabled', 0);  % Load dependencies for CIAtah \n\
+deepinterp.setup(); \n\
+setupEXTRACT; \n\
 % ADD HERE EXTRA ACTIONS FOR YOUR ADD-ON IF REQUIRED! \n\
 clear" >> ${STARTUP_SCRIPT}
 
@@ -106,5 +109,6 @@ RUN cd ${ADDONS_DIR} && \
     done
 
 # Clear the ENTRYPOINT so Nebari can control startup
+# For a standalone build (without Nebari), comment the two next lines
 ENTRYPOINT []
 CMD ["/bin/bash"]
